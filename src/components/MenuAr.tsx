@@ -2,7 +2,13 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Heart, Search, User, LogIn, Menu, X } from "lucide-react";
+import { Heart, Search, User, LogIn, Menu, X, Globe } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const MenuAr = () => {
   const navigate = useNavigate();
@@ -12,6 +18,13 @@ const MenuAr = () => {
   const [userType, setUserType] = useState<"family" | "nanny" | "admin" | null>(null);
   
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  
+  const changeLanguage = (lang: "fr" | "ar") => {
+    // Stocker la préférence de langue dans localStorage
+    localStorage.setItem("language", lang);
+    // Recharger la page pour appliquer les changements
+    window.location.reload();
+  };
   
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm py-3 px-4 md:px-6 sticky top-0 z-50 rtl">
@@ -35,6 +48,23 @@ const MenuAr = () => {
             <Search className="w-4 h-4" />
           </Button>
           
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="gap-2">
+                <Globe className="w-4 h-4" />
+                اللغة
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => changeLanguage("fr")}>
+                Français
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => changeLanguage("ar")}>
+                العربية
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           {!isLoggedIn ? (
             <>
               <Button 
@@ -42,7 +72,7 @@ const MenuAr = () => {
                 className="border-pink-500/40 text-pink-700 hover:bg-pink-50"
                 onClick={() => navigate("/login")}
               >
-                <LogIn className="w-4 h-4 mr-2" />
+                <LogIn className="w-4 h-4 ml-2" />
                 تسجيل الدخول
               </Button>
               <Button 
@@ -65,7 +95,7 @@ const MenuAr = () => {
                 className="border-pink-500/40 text-pink-700 hover:bg-pink-50"
                 onClick={() => navigate("/profile/me")}
               >
-                <User className="w-4 h-4 mr-2" />
+                <User className="w-4 h-4 ml-2" />
                 ملفي الشخصي
               </Button>
             </>
@@ -96,6 +126,15 @@ const MenuAr = () => {
               بحث
             </Button>
             
+            <Button 
+              variant="ghost"
+              className="flex justify-start items-center gap-2" 
+              onClick={() => changeLanguage(localStorage.getItem("language") === "ar" ? "fr" : "ar")}
+            >
+              <Globe className="w-4 h-4" />
+              {localStorage.getItem("language") === "ar" ? "Français" : "العربية"}
+            </Button>
+            
             {!isLoggedIn ? (
               <>
                 <Button 
@@ -106,7 +145,7 @@ const MenuAr = () => {
                     setIsMenuOpen(false);
                   }}
                 >
-                  <LogIn className="w-4 h-4 mr-2" />
+                  <LogIn className="w-4 h-4 ml-2" />
                   تسجيل الدخول
                 </Button>
                 <Button 
@@ -139,7 +178,7 @@ const MenuAr = () => {
                     setIsMenuOpen(false);
                   }}
                 >
-                  <User className="w-4 h-4 mr-2" />
+                  <User className="w-4 h-4 ml-2" />
                   ملفي الشخصي
                 </Button>
               </>
