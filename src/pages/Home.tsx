@@ -1,9 +1,8 @@
-
 import React from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle, Star, Calendar, BadgeCheck, MessageCircle, Shield } from "lucide-react";
+import { CheckCircle, Star, Calendar, BadgeCheck, MessageCircle, Shield, Search, Heart } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();

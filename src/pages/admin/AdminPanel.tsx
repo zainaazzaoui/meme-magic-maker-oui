@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Search, User, MessageCircle, AlertCircle, CheckCircle, XCircle, Eye, Shield, BarChart, Users } from "lucide-react";
+import { Search, User, MessageCircle, AlertCircle, CheckCircle, XCircle, Eye, Shield, BarChart, Users, Calendar } from "lucide-react";
 
 // Types pour les données simulées
 interface UserData {
