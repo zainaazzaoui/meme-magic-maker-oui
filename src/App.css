@@ -1,4 +1,5 @@
 
+
 /* Stylesheet principale pour Nanny */
 
 /* Animation subtile pour les icones */
@@ -33,3 +34,25 @@
   height: 100%;
   background: white;
 }
+
+/* Support pour le RTL (right-to-left) */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .ml-auto {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+.rtl .mr-2 {
+  margin-right: unset;
+  margin-left: 0.5rem;
+}
+
+.rtl .mr-4 {
+  margin-right: unset;
+  margin-left: 1rem;
+}
+
