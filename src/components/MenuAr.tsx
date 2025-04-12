@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Heart, Search, User, LogIn, Menu, X, Globe } from "lucide-react";
+import { Heart, Search, User, LogIn, Menu, X, Globe, Home, Users, UserPlus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,10 +42,37 @@ const MenuAr = () => {
           <Button 
             variant="ghost"
             className="flex items-center gap-2" 
+            onClick={() => navigate("/")}
+          >
+            <Home className="w-4 h-4" />
+            الرئيسية
+          </Button>
+
+          <Button 
+            variant="ghost"
+            className="flex items-center gap-2" 
+            onClick={() => navigate("/create-nanny")}
+          >
+            <UserPlus className="w-4 h-4" />
+            إنشاء مربية
+          </Button>
+
+          <Button 
+            variant="ghost"
+            className="flex items-center gap-2" 
+            onClick={() => navigate("/create-family")}
+          >
+            <Users className="w-4 h-4" />
+            إنشاء عائلة
+          </Button>
+          
+          <Button 
+            variant="ghost"
+            className="flex items-center gap-2" 
             onClick={() => navigate("/search")}
           >
-            بحث
             <Search className="w-4 h-4" />
+            بحث
           </Button>
           
           <DropdownMenu>
@@ -114,6 +141,42 @@ const MenuAr = () => {
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-b border-gray-200 py-4 z-50">
           <nav className="flex flex-col space-y-2 px-4">
+            <Button 
+              variant="ghost"
+              className="flex justify-start items-center gap-2" 
+              onClick={() => {
+                navigate("/");
+                setIsMenuOpen(false);
+              }}
+            >
+              <Home className="w-4 h-4" />
+              الرئيسية
+            </Button>
+
+            <Button 
+              variant="ghost"
+              className="flex justify-start items-center gap-2" 
+              onClick={() => {
+                navigate("/create-nanny");
+                setIsMenuOpen(false);
+              }}
+            >
+              <UserPlus className="w-4 h-4" />
+              إنشاء مربية
+            </Button>
+
+            <Button 
+              variant="ghost"
+              className="flex justify-start items-center gap-2" 
+              onClick={() => {
+                navigate("/create-family");
+                setIsMenuOpen(false);
+              }}
+            >
+              <Users className="w-4 h-4" />
+              إنشاء عائلة
+            </Button>
+            
             <Button 
               variant="ghost"
               className="flex justify-start items-center gap-2" 
