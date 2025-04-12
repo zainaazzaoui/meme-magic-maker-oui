@@ -2,7 +2,7 @@ import React from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle, Star, Calendar, BadgeCheck, MessageCircle, Shield, Search, Heart } from "lucide-react";
+import { CheckCircle, Star, Calendar, BadgeCheck, MessageCircle, Shield, Search, Heart, Image as ImageIcon } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Home = () => {
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center" 
         style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1617311444093-08e1f8ae2ec7?auto=format&fit=crop&w=1920&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1721322800607-8c38375eef04')`,
           opacity: 0.15
         }}
       />
@@ -48,12 +48,16 @@ const Home = () => {
                   </Button>
                 </div>
               </div>
-              <div className="md:w-1/2">
+              <div className="md:w-1/2 relative group">
+                <div className="absolute -inset-2 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out blur-lg"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
-                  alt="Une nounou s'occupant d'un enfant" 
-                  className="rounded-lg shadow-xl w-full h-auto object-cover"
+                  src="https://images.unsplash.com/photo-1721322800607-8c38375eef04" 
+                  alt="Une famille heureuse avec une nounou" 
+                  className="rounded-lg shadow-xl w-full h-auto object-cover relative z-10 transition-transform duration-300 group-hover:scale-105"
                 />
+                <div className="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md z-20 group-hover:bg-white transition duration-300">
+                  <ImageIcon className="w-6 h-6 text-pink-500" />
+                </div>
               </div>
             </div>
           </div>
