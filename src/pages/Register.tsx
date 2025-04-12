@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Heart } from "lucide-react";
+import { Heart, Upload, X } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Register = () => {
   
   const [activeTab, setActiveTab] = useState<"family" | "nanny">(initialTab as "family" | "nanny");
   const [isLoading, setIsLoading] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   
   // États des formulaires
   const [familyForm, setFamilyForm] = useState({
@@ -39,6 +41,7 @@ const Register = () => {
     confirmPassword: "",
     experience: "",
     bio: "",
+    photo: null as File | null,
   });
 
   const handleFamilySubmit = async (e: React.FormEvent) => {
@@ -74,9 +77,14 @@ const Register = () => {
         return;
       }
       
-      // Simulation d'une requête d'inscription
+      // Simulation d'une requête d'inscription avec upload de photo
       // À remplacer par un vrai appel API vers le backend Laravel
       await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Affichage d'un message concernant la photo
+      if (nannyForm.photo) {
+        console.log("Photo à envoyer:", nannyForm.photo.name);
+      }
       
       toast.success("Compte nounou créé avec succès !");
       navigate("/nanny/dashboard");
@@ -95,6 +103,27 @@ const Register = () => {
   const handleNannyFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setNannyForm(prev => ({ ...prev, [name]: value }));
+  };
+  
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    
+    if (file) {
+      // Mise à jour du formulaire avec la photo
+      setNannyForm(prev => ({ ...prev, photo: file }));
+      
+      // Création d'une URL pour l'aperçu de la photo
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  const removePhoto = () => {
+    setNannyForm(prev => ({ ...prev, photo: null }));
+    setPhotoPreview(null);
   };
 
   return (
@@ -248,6 +277,48 @@ const Register = () => {
                           required
                           className="border-pink-200 focus-visible:ring-pink-300"
                         />
+                      </div>
+                    </div>
+                    
+                    {/* Ajout du champ pour télécharger une photo */}
+                    <div className="space-y-2">
+                      <Label htmlFor="nanny-photo">Photo de profil</Label>
+                      <div className="flex flex-col items-center space-y-4">
+                        {photoPreview ? (
+                          <div className="relative">
+                            <Avatar className="w-24 h-24">
+                              <AvatarImage src={photoPreview} alt="Aperçu" />
+                              <AvatarFallback>Photo</AvatarFallback>
+                            </Avatar>
+                            <button
+                              type="button"
+                              onClick={removePhoto}
+                              className="absolute -top-2 -right-2 bg-red-100 text-red-600 rounded-full p-1 hover:bg-red-200"
+                            >
+                              <X size={16} />
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="w-full">
+                            <label
+                              htmlFor="nanny-photo-upload"
+                              className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-pink-300 rounded-lg cursor-pointer hover:bg-pink-50"
+                            >
+                              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                <Upload className="w-8 h-8 text-pink-400 mb-2" />
+                                <p className="text-sm text-gray-500">Cliquez pour ajouter une photo</p>
+                              </div>
+                              <Input
+                                id="nanny-photo-upload"
+                                name="photo"
+                                type="file"
+                                accept="image/*"
+                                onChange={handlePhotoChange}
+                                className="hidden"
+                              />
+                            </label>
+                          </div>
+                        )}
                       </div>
                     </div>
                     
