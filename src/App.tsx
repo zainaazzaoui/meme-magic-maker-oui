@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import FamilyDashboard from "./pages/family/Dashboard";
+import FamilyProfile from "./pages/family/Profile";
 import NannyDashboard from "./pages/nanny/Dashboard";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
@@ -53,6 +54,8 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/family/dashboard" element={<FamilyDashboard />} />
+            <Route path="/family/profile" element={<FamilyProfile />} />
+            <Route path="/profile/me" element={<FamilyProfile />} />
             <Route path="/nanny/dashboard" element={<NannyDashboard />} />
             <Route path="/search" element={<Search />} />
             <Route path="/profile/:id" element={<Profile />} />
